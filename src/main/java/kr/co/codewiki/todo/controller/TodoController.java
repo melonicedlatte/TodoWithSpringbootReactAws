@@ -56,6 +56,7 @@ public class TodoController {
         }
     }
 
+
     // 전체 할일 리스트 조회 get
     @GetMapping
     public ResponseEntity<?> retrieveTodoList() {
@@ -131,4 +132,5 @@ public class TodoController {
             return ResponseEntity.badRequest().body(response);
         }
     }
+
 }

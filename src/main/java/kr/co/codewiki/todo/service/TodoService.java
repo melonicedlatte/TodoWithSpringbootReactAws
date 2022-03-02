@@ -15,7 +15,6 @@ public class TodoService {
     @Autowired
     private TodoRepository repository;
 
-
     // 인증 + 검증
     private void validate(final TodoEntity entity) {
         if(entity == null) {

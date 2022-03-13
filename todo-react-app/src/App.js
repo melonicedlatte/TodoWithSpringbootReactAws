@@ -1,10 +1,18 @@
 import React from "react";
 import Todo from "./Todo";
-import AddTodo from "./AddTodo";
-import { Paper, List, Container } from "@material-ui/core";
+import AddTodo from "./AddTodo.js";
 import "./App.css";
-import { call } from "./service/ApiServices";
-
+import {
+  Paper,
+  List,
+  Container,
+  Grid,
+  Button,
+  AppBar,
+  Toolbar,
+  Typography,
+} from "@material-ui/core";
+import { call, signout } from "./service/ApiService"; // signout 추가
 
 class App extends React.Component {
   constructor(props) {
@@ -26,7 +34,9 @@ class App extends React.Component {
         //   title: "Learn React Router",
         //   done: false
         // }
-      ]
+      ],
+      /* 1. 로딩중이라는 상태이다. 생성자에 상태 변수를 추가한다. */
+      loading: true,
     };
   }
 
@@ -70,9 +80,9 @@ class App extends React.Component {
   //     );
   // };
 
-  componentDidMount() {
+  componentDidMount() { 
     call("/todo", "GET", null).then((response) =>
-      this.setState({ items: response.data })
+      this.setState({ items: response.data, loading: false  })
     );
   }
 
@@ -98,34 +108,66 @@ class App extends React.Component {
     console.log("부모 items : ", this.state.items);
   };
 
-  render(){ 
-    // idx 는 인덱스 값  
+  // idx == map에 사용되는 인덱스
+  render() {
     var todoItems = this.state.items.length > 0 && (
       <Paper style={{ margin: 16 }}>
-        <List>
+        <List> 
           {this.state.items.map((item, idx) => (
-            <Todo 
-              item={item} 
-              key={item.id} 
-              delete={this.delete} 
+            <Todo
+              item={item}
+              key={item.id}
+              delete={this.delete}
               update={this.update}
-              // printAppItems={this.printAppItems}
             />
           ))}
         </List>
       </Paper>
     );
 
-    // 3. props로 넘겨주기
-    return (
-      <div className="App">
+    // navigationBar 추가
+    var navigationBar = (
+      <AppBar position="static">
+        <Toolbar>
+          <Grid justify="space-between" container>
+            <Grid item>
+              <Typography variant="h6">오늘의 할일</Typography>
+            </Grid>
+            <Grid>
+              <Button color="inherit" onClick={signout}>
+                로그아웃
+              </Button>
+            </Grid>
+          </Grid>
+        </Toolbar>
+      </AppBar>
+    );
+
+    /* 로딩중이 아닐 때 렌더링 할 부분 */
+    var todoListPage = (
+      <div>
+        {navigationBar} {/* 네비게이션 바 렌더링 */}
         <Container maxWidth="md">
           <AddTodo add={this.add} />
           <div className="TodoList">{todoItems}</div>
         </Container>
       </div>
     );
+
+    /* 로딩중일 때 렌더링 할 부분 */
+    var loadingPage = <h1> 로딩중.. </h1>;
+
+    var content = loadingPage;
+
+    if (!this.state.loading) {
+      /* 로딩중이 아니면 todoListPage를 선택*/
+      content = todoListPage;
+    }
+
+    /* 선택한 content 렌더링 */
+    return <div className="App">{content}</div>;
   }
+
 };
 
 export default App;

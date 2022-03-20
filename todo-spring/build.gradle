@@ -30,6 +30,9 @@ dependencies {
 
 	// https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
 	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+
+	// mysql
+	runtimeOnly 'mysql:mysql-connector-java'
 }
 
 tasks.named('test') {

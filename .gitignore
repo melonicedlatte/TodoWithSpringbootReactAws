@@ -1,3 +1,7 @@
+##########################
+######## Spring ##########
+##########################
+
 HELP.md
 .gradle
 build/
@@ -27,11 +31,11 @@ out/
 !**/src/test/**/out/
 
 ### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+todo-spring/nbproject/private/
+todo-spring/nbbuild/
+todo-spring/dist/
+todo-spring/nbdist/
+todo-spring/.nb-gradle/
 
 ### VS Code ###
 .vscode/
@@ -39,3 +43,34 @@ out/
 ### application properties ###
 .properties
 .yml
+
+
+
+
+##########################
+######## React  ##########
+##########################
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+todo-react-app/node_modules
+todo-react-app/.pnp
+.pnp.js
+
+# testing
+todo-react-app/coverage
+
+# production
+todo-react-app/build
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
